@@ -12,7 +12,11 @@ def get_last_modified_timestamp(file_path):
 def load_tasks():
     file_path = "tasks.json"
     with open(file_path, "r") as file:
-        tasks = json.load(file)
+        try:
+            tasks = json.load(file)
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"Error reading the file: {e}")
+            tasks = []
 
     last_modified = get_last_modified_timestamp(file_path)
     if last_modified:
