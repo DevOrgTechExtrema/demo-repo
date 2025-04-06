@@ -22,6 +22,7 @@ def show_menu():
     print("3. Mark Task as Done")
     print("4. Delete Task")
     print("5. Exit")
+    print("6. Change Task")
     
 def list_tasks():
     if not tasks:
@@ -55,6 +56,15 @@ def delete_task():
         print(f"Task {task_num} deleted: {removed_task['task']}")
     except (ValueError, IndexError):
         print("Invalid task number.")
+
+def put_task():
+    task_index = int(input("Enter the number of the task to change: "))
+    task = input("Enter the new task: ").strip()
+    if task:
+        tasks[task_index - 1] = {"task": task, "done": False}
+        print(f"Task changed: {task}")
+    else:
+        print("Task cannot be empty.")
         
 def main():
     print("Welcome to the To-Do List Application")
@@ -71,6 +81,8 @@ def main():
             delete_task()
         elif choice == "5":
             break
+        elif choice == "6":
+            put_task()
 
 if __name__ == "__main__":
     main()
