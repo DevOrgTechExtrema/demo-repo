@@ -3,6 +3,16 @@ import os
 from datetime import datetime
 
 def get_last_modified_timestamp(file_path):
+    """
+    Returns the last modified timestamp of a file as a formatted string.
+    
+    Args:
+        file_path: Path to the file.
+    
+    Returns:
+        A string representing the last modified timestamp in "YYYY-MM-DD HH:MM:SS" format,
+        or None if the file does not exist.
+    """
     try:
         timestamp = os.path.getmtime(file_path)
         return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
@@ -10,6 +20,14 @@ def get_last_modified_timestamp(file_path):
         return None
     
 def load_tasks():
+    """
+    Loads tasks from the "tasks.json" file with error handling.
+    
+    If the file does not exist or contains invalid JSON, prints an error message. After loading, prints the last modified timestamp if available.
+    
+    Returns:
+        The list of tasks loaded from the file, or an empty list if loading fails.
+    """
     file_path = "tasks.json"
     try:
         with open(file_path, "r") as file:
@@ -28,11 +46,20 @@ def load_tasks():
 tasks = load_tasks()
 
 def save_tasks():
+    """
+    Saves the current list of tasks to the "tasks.json" file in JSON format.
+    """
     with open("tasks.json", "w") as file:
         json.dump(tasks, file)
     print("Tasks saved.")    
 
 def add_task():
+    """
+    Prompts the user to add a new task to the to-do list.
+    
+    If the input is non-empty, adds the task with a status of not done. Prints an error
+    message if the input is empty.
+    """
     task = input("Enter a new task: ").strip()
     if task:
         tasks.append({"task": task, "done": False})
