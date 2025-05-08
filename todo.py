@@ -28,7 +28,7 @@ def load_tasks():
     Returns:
         The list of tasks loaded from the file, or an empty list if loading fails.
     """
-    file_path = "tasks.json"
+    file_path = "users.json"
     try:
         with open(file_path, "r") as file:
             tasks = json.load(file)
