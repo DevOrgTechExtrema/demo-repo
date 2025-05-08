@@ -17,7 +17,7 @@ def get_last_modified_timestamp(file_path):
         timestamp = os.path.getmtime(file_path)
         return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
     except FileNotFoundError:
-        return None
+        return False
     
 def load_tasks():
     """
