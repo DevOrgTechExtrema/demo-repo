@@ -1,11 +1,36 @@
 import json
+import os
+from datetime import datetime
+
+def get_last_modified_timestamp(file_path):
+    try:
+        timestamp = os.path.getmtime(file_path)
+        return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+    except FileNotFoundError:
+        return None
+    
+def load_tasks():
+    file_path = "tasks.json"
+    try:
+        with open(file_path, "r") as file:
+            tasks = json.load(file)
+    except FileNotFoundError:
+        print("File not found.")
+    except json.JSONDecodeError:
+        print("Error reading the JSON file.")
+        
+    last_modified = get_last_modified_timestamp(file_path)
+    if last_modified:
+        print(f"Tasks loaded. Last modified on: {last_modified}")
+    return tasks
+
+
+tasks = load_tasks()
 
 def save_tasks():
     with open("tasks.json", "w") as file:
         json.dump(tasks, file)
-    print("Tasks saved.")
-    
-tasks = []
+    print("Tasks saved.")    
 
 def add_task():
     task = input("Enter a new task: ").strip()
